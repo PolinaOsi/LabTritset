@@ -1,7 +1,7 @@
 #include "gtest/gtest.h"
 #include "tritset.h"
 #include <sstream>
-using namespace std;
+
 TEST  (test, Constructor) {
 Tritset set(1000);
 size_t allocLength = set.capacity();
@@ -27,23 +27,15 @@ set[2] = Trit::True;
 TEST(test, Memory_allocation) {
 Tritset set(1000);
 size_t allocLength = set.capacity();
-
 set[10000000] = Trit::Unknown;
-cout<<set<<endl;
     ASSERT_TRUE(allocLength == set.capacity());
-
 if (set[20000000] == Trit::True) {}
-  //  cout<<set<<endl;
     ASSERT_TRUE(allocLength == set.capacity());
-
 set[1000000] = Trit::True;
-  //  cout<<set<<endl;
     ASSERT_TRUE(allocLength < set.capacity());
-
 allocLength = set.capacity();
 set[10000000] = Trit::Unknown;
 set[100000] = Trit::False;
-  //  cout<<set<<endl;
     ASSERT_TRUE(allocLength == set.capacity());
 }
 
@@ -88,8 +80,8 @@ Trit t = ts[0];
 
 TEST (test, Output) {
 Tritset set{Trit::True, Trit::False, Trit::Unknown, Trit::True};
-std::stringstream f;
-f << set << std::endl;
+stringstream f;
+f << set << endl;
     ASSERT_TRUE(f.str() == "10?1\n");
 }
 
