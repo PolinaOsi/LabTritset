@@ -1,12 +1,12 @@
 #include "tritset.h"
 
-std::ostream &operator<<(std::ostream &out, Trit &trit) {
+ostream &operator<<(ostream &out, Trit &trit) {
     switch (trit) {
         case Trit::True :
             out << 1;
             break;
         case Trit::False :
-            out << 0;
+           out << 0;
             break;
         default:
             out << "?";
@@ -14,7 +14,7 @@ std::ostream &operator<<(std::ostream &out, Trit &trit) {
     return out;
 };
 
-std::ostream &operator<<(std::ostream &out, Tritset &set) {
+ostream &operator<<(ostream &out, Tritset &set) {
     for (auto s : set) {
         out << s;
     }
@@ -129,43 +129,6 @@ Tritset Tritset::operator|(const Tritset &set) const {
     return returnSet;
 }
 
-Tritset &Tritset::operator|=(const Tritset &set) {
-    uint biggestLength = (size > set.size) ? size : set.size;
-    if (biggestLength % TRITS_IN_UINT == 0) trits.resize(biggestLength / TRITS_IN_UINT);
-    else trits.resize(biggestLength / TRITS_IN_UINT + 1);
-    uint mask1, mask2;
-    for (uint i = 0; i < biggestLength; i++) {
-        mask1 = 3;
-        mask2 = 3;
-        mask1 = mask1 & (trits[i / TRITS_IN_UINT] >> (2 * (i % TRITS_IN_UINT)));
-        mask2 = mask2 & (set.trits[i / TRITS_IN_UINT] >> (2 * (i % TRITS_IN_UINT)));
-        if (mask1 == static_cast<uint>(Trit::True) || mask2 == static_cast<uint>(Trit::True)) (*this)[i] = Trit::True;
-        else if (mask1 == static_cast<uint>(Trit::False) && mask2 == static_cast<uint>(Trit::False))
-            (*this)[i] = Trit::False;
-        else (*this)[i] = Trit::Unknown;
-    }
-    return (*this);
-}
-
-Tritset &Tritset::operator&=(const Tritset &set) {
-    uint biggestLength = (size > set.size) ? size : set.size;
-    if (biggestLength % TRITS_IN_UINT == 0) trits.resize(biggestLength / TRITS_IN_UINT);
-    else trits.resize(biggestLength / TRITS_IN_UINT + 1);
-    uint mask1, mask2;
-    for (uint i = 0; i < biggestLength; i++) {
-        mask1 = 3;
-        mask2 = 3;
-        mask1 = mask1 & (trits[i / TRITS_IN_UINT] >> (2 * (i % TRITS_IN_UINT)));
-        mask2 = mask2 & (set.trits[i / TRITS_IN_UINT] >> (2 * (i % TRITS_IN_UINT)));
-        if (mask1 == static_cast<uint>(Trit::False) || mask2 == static_cast<uint>(Trit::False))
-            (*this)[i] = Trit::False;
-        else if (mask1 == static_cast<uint>(Trit::True) && mask2 == static_cast<uint>(Trit::True))
-            (*this)[i] = Trit::True;
-        else (*this)[i] = Trit::Unknown;
-    }
-    return (*this);
-};
-
 Tritset Tritset::operator!() {
     uint length = size;
     Tritset returnSet(length);
@@ -198,10 +161,7 @@ void Tritset::check() {
         falseAmount = 0;
         lastImportantTrit = 0;
         uint unknownsBuffer = 0;
-        //std::cout << "Shrinking set, please wait" << std::endl;
         for (uint i = 0; i < length; i++) {
-            //if (i % (length / 10) == 0)
-            //std::cout << i / (length / 10) * 10 << "%..." << std::endl;
             if ((*this)[i] == Trit::Unknown)
                 unknownsBuffer++;
             else {
@@ -226,7 +186,7 @@ Trit Tritset::operator[](uint pos) const {
     return static_cast<Trit>(source);
 }
 
-Tritset::Tritset(std::initializer_list<Trit> list) {
+Tritset::Tritset(initializer_list<Trit> list) {
     size = list.size();
     trueAmount = 0;
     falseAmount = 0;
