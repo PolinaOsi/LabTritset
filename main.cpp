@@ -1,9 +1,10 @@
 #include <iostream>
 #include "tritset.h"
 
-int main() {
+int main(){
     Tritset set{Trit::True, Trit::False, Trit::Unknown, Trit::True};
-    std::cout << set << std::endl;
+    cout << set << endl;
     testes();
+
     return 0;
 }
