@@ -7,18 +7,21 @@
 
 
 typedef unsigned int uint;
+using namespace std;
 
 enum class Trit {
     Unknown, True, False
 };
 
 class Tritset_P {
+
 private:
     class Tritset &set;
 
     uint nmb;
     uint &pointer;
     uint shift;
+    
 public:
     Tritset_P(Tritset &, uint, uint &, uint);
 
@@ -29,17 +32,16 @@ public:
     operator Trit();
 };
 
-
 class Tritset {
 private:
     uint trueAmount;
     uint falseAmount;
-    uint lastImportantTrit;
     uint unknownAmount;
+    uint lastImportantTrit;
     bool isChecked;
     const uint TRITS_IN_UINT = sizeof(uint) * 4;
     uint size;
-    std::vector<uint> trits;
+    vector<uint> trits;
 public:
     class iterator {
     private:
@@ -62,11 +64,7 @@ public:
 
     Tritset &operator=(const Tritset &);
 
-    Tritset(std::initializer_list<Trit>);
-
-    Tritset &operator|=(const Tritset &);
-
-    Tritset &operator&=(const Tritset &);
+    Tritset(initializer_list<Trit>);
 
     Tritset operator&(const Tritset &) const;
 
@@ -94,8 +92,9 @@ public:
 
 };
 
-std::ostream &operator<<(std::ostream &, Trit &);
+ostream &operator<<(ostream &, Trit &);
 
-std::ostream &operator<<(std::ostream &, Tritset &);
+ostream &operator<<(ostream &, Tritset &);
 int testes();
+
 #endif //TRITSET_TRITSET_H
