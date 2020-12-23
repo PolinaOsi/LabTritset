@@ -97,7 +97,7 @@ if (a == Trit::True) check++;
     ASSERT_TRUE(check == 10);
 }
 
-/*TEST (test, Logical_operations) {
+TEST (test, Logical_operations) {
 Tritset setA(20);
 for (int i = 0; i < 20; i++)
 setA[i] = Trit::True;
@@ -114,7 +114,7 @@ cout<< setA<<endl<< setB<<endl<< setC<<endl;
     EXPECT_TRUE(setC.cardinality(Trit::False) == 20);
     EXPECT_TRUE(setD.cardinality(Trit::True) == 10);
     EXPECT_TRUE(setE.cardinality(Trit::False) == 10);
-};*/
+};
 
 TEST (test, Trimming_and_length) {
 Tritset setA(50);
